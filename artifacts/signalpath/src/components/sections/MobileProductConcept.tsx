@@ -2,7 +2,23 @@ import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ResponsiveContainer, LineChart, Line } from "recharts";
-import { AlertCircle, ChevronRight, Pause, CheckCircle2, ShieldAlert, ArrowRight, Activity, Share2, Mail, CheckCheck } from "lucide-react";
+import {
+  AlertCircle,
+  ChevronRight,
+  Pause,
+  CheckCircle2,
+  ShieldAlert,
+  ArrowRight,
+  Activity,
+  Share2,
+  Mail,
+  CheckCheck,
+  GitBranch,
+  Brain,
+  FileText,
+  MessageSquare,
+  Clock,
+} from "lucide-react";
 
 const errorData = [
   { value: 2 }, { value: 3 }, { value: 2 }, { value: 5 },
@@ -11,7 +27,12 @@ const errorData = [
 ];
 
 export default function MobileProductConcept() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: "center", dragFree: false });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+    containScroll: "trimSnaps",
+    dragFree: false,
+  });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [confirmed, setConfirmed] = useState(false);
 
@@ -27,6 +48,8 @@ export default function MobileProductConcept() {
   }, [emblaApi, onSelect]);
 
   const goTo = (index: number) => emblaApi?.scrollTo(index);
+  const goPrev = () => emblaApi?.scrollPrev();
+  const goNext = () => emblaApi?.scrollNext();
 
   const screens = [
     {
@@ -182,7 +205,7 @@ export default function MobileProductConcept() {
             <button
               className="w-full bg-primary text-primary-foreground py-3.5 rounded-xl font-medium text-sm flex items-center justify-center gap-2 shadow-md"
               data-testid="btn-execute"
-              onClick={() => goTo(2)}
+              onClick={() => goTo(4)}
             >
               <Pause className="w-4 h-4 fill-current" /> Execute
             </button>
@@ -191,14 +214,148 @@ export default function MobileProductConcept() {
       )
     },
     {
-      title: "Decision Confirmation",
+      title: "Evidence & Signals",
+      content: (
+        <div className="flex flex-col h-full bg-card">
+          <div className="p-4 border-b border-border/40 flex items-center gap-3 bg-background/50 backdrop-blur-md">
+            <button
+              className="w-8 h-8 flex items-center justify-center text-foreground"
+              data-testid="btn-back-evidence"
+              onClick={() => goTo(1)}
+            >
+              <ChevronRight className="w-5 h-5 rotate-180" />
+            </button>
+            <span className="font-medium text-sm">Evidence</span>
+          </div>
+          <div className="p-5 flex-1 overflow-y-auto">
+            <div className="mb-6">
+              <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-3 inline-flex items-center gap-1.5">
+                <Brain className="w-3.5 h-3.5" />
+                Why the AI thinks this
+              </div>
+              <h2 className="text-2xl font-serif font-bold mb-2">Four signals point to checkout</h2>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                SignalPath turns fragmented telemetry into a ranked evidence chain so the operator can challenge the recommendation.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {[
+                ["Checkout errors", "18.4% spike after v2.4.0", "High"],
+                ["Support tickets", "31% increase mentioning payment", "High"],
+                ["Deploy timeline", "Failures began 6m after rollout", "Medium"],
+                ["Prior incident", "Matches April payment retry bug", "Medium"],
+              ].map(([label, detail, weight]) => (
+                <div key={label} className="bg-muted/20 border border-border/50 rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium">{label}</span>
+                    <span className="text-[10px] uppercase tracking-wide bg-chart-5/15 text-chart-5 px-2 py-1 rounded-md">{weight}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{detail}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5 bg-muted/30 p-4 rounded-xl border border-border/50">
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                The point is not blind automation. The screen makes uncertainty inspectable before asking for commitment.
+              </p>
+            </div>
+          </div>
+          <div className="p-4 border-t border-border/40">
+            <button
+              className="w-full bg-primary text-primary-foreground py-3.5 rounded-xl font-medium text-sm flex items-center justify-center gap-2"
+              data-testid="btn-compare-options"
+              onClick={() => goTo(3)}
+            >
+              Compare Response Paths <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Response Options",
+      content: (
+        <div className="flex flex-col h-full bg-card">
+          <div className="p-4 border-b border-border/40 flex items-center gap-3 bg-background/50 backdrop-blur-md">
+            <button
+              className="w-8 h-8 flex items-center justify-center text-foreground"
+              data-testid="btn-back-options"
+              onClick={() => goTo(2)}
+            >
+              <ChevronRight className="w-5 h-5 rotate-180" />
+            </button>
+            <span className="font-medium text-sm">Response Paths</span>
+          </div>
+          <div className="p-5 flex-1 overflow-y-auto">
+            <h2 className="text-2xl font-serif font-bold mb-2">Choose the safest next move</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+              The AI recommends a path, but still shows alternatives, tradeoffs, and who is affected.
+            </p>
+
+            <div className="space-y-3">
+              <button
+                className="w-full text-left bg-primary/10 border border-primary/40 rounded-2xl p-4 shadow-sm"
+                data-testid="btn-option-pause"
+                onClick={() => goTo(4)}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Pause className="w-4 h-4 text-primary fill-current" />
+                    <span className="font-semibold text-sm">Pause rollout</span>
+                  </div>
+                  <span className="text-[10px] uppercase tracking-wide bg-primary text-primary-foreground px-2 py-1 rounded-md">Recommended</span>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">Stops new exposure, preserves current sessions, and gives engineering a stable window to patch.</p>
+              </button>
+
+              {[
+                ["Rollback fully", "Fastest recovery, but higher migration risk for active users."],
+                ["Continue rollout", "Avoids disruption, but likely increases checkout failures."],
+              ].map(([label, detail]) => (
+                <div key={label} className="bg-muted/20 border border-border/50 rounded-2xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <GitBranch className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium text-sm">{label}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{detail}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="bg-muted/30 rounded-xl p-3 border border-border/40">
+                <p className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">Blast radius</p>
+                <p className="text-lg font-semibold">12.4k</p>
+              </div>
+              <div className="bg-muted/30 rounded-xl p-3 border border-border/40">
+                <p className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">Decision SLA</p>
+                <p className="text-lg font-semibold">8 min</p>
+              </div>
+            </div>
+          </div>
+          <div className="p-4 border-t border-border/40">
+            <button
+              className="w-full bg-primary text-primary-foreground py-3.5 rounded-xl font-medium text-sm"
+              data-testid="btn-confirm-path"
+              onClick={() => goTo(4)}
+            >
+              Continue with Pause
+            </button>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Human Confirmation",
       content: (
         <div className="flex flex-col h-full bg-card">
           <div className="p-4 border-b border-border/40 flex items-center gap-3 bg-background/50 backdrop-blur-md">
             <button
               className="w-8 h-8 flex items-center justify-center text-foreground"
               data-testid="btn-back-3"
-              onClick={() => { setConfirmed(false); goTo(1); }}
+              onClick={() => { setConfirmed(false); goTo(3); }}
             >
               <ChevronRight className="w-5 h-5 rotate-180" />
             </button>
@@ -233,9 +390,9 @@ export default function MobileProductConcept() {
                 <button
                   className="mt-4 w-full bg-muted text-foreground py-3 rounded-xl font-medium text-sm"
                   data-testid="btn-done"
-                  onClick={() => { setConfirmed(false); goTo(0); }}
+                  onClick={() => { setConfirmed(false); goTo(5); }}
                 >
-                  Back to Start
+                  Review Action Log
                 </button>
               </motion.div>
             ) : (
@@ -301,7 +458,7 @@ export default function MobileProductConcept() {
                   <button
                     className="w-full text-center text-xs text-muted-foreground font-medium mt-4 p-2 hover:text-foreground transition-colors"
                     data-testid="btn-cancel"
-                    onClick={() => goTo(1)}
+                    onClick={() => goTo(3)}
                   >
                     Cancel
                   </button>
@@ -311,19 +468,110 @@ export default function MobileProductConcept() {
           </AnimatePresence>
         </div>
       )
+    },
+    {
+      title: "Action Log",
+      content: (
+        <div className="flex flex-col h-full bg-card">
+          <div className="p-4 border-b border-border/40 flex items-center justify-between bg-background/50 backdrop-blur-md">
+            <span className="font-medium text-sm">Follow-through</span>
+            <div className="text-[10px] uppercase tracking-wide text-chart-2 bg-chart-2/10 px-2 py-1 rounded-md">Live</div>
+          </div>
+          <div className="p-5 flex-1 overflow-y-auto">
+            <div className="mb-6">
+              <div className="w-14 h-14 rounded-2xl bg-chart-2/15 flex items-center justify-center mb-4">
+                <CheckCheck className="w-7 h-7 text-chart-2" />
+              </div>
+              <h2 className="text-2xl font-serif font-bold mb-2">The decision becomes a system of record</h2>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                After the human confirms, SignalPath executes the chosen playbook and keeps the rationale attached to every action.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {[
+                [CheckCircle2, "Rollout paused", "LaunchDarkly flag capped at 42%"],
+                [MessageSquare, "Incident channel updated", "#eng-incidents has summary and owner"],
+                [Mail, "Stakeholders notified", "Customer success and product copied"],
+                [FileText, "Decision record created", "Evidence, confidence, and override path logged"],
+                [Clock, "Review scheduled", "Outcome check in 48 hours"],
+              ].map(([Icon, label, detail]) => (
+                <div key={label as string} className="flex gap-3 bg-muted/20 border border-border/50 rounded-xl p-3">
+                  {React.createElement(Icon as React.ElementType, {
+                    className: "w-4 h-4 text-chart-2 shrink-0 mt-0.5",
+                  })}
+                  <div>
+                    <p className="text-sm font-medium">{label as string}</p>
+                    <p className="text-xs text-muted-foreground">{detail as string}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="p-4 border-t border-border/40">
+            <button
+              className="w-full bg-muted text-foreground py-3.5 rounded-xl font-medium text-sm"
+              data-testid="btn-return-start"
+              onClick={() => goTo(0)}
+            >
+              Back to Alert
+            </button>
+          </div>
+        </div>
+      )
     }
   ];
 
   return (
     <section id="concept" className="container mx-auto px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-12 border-b border-border/40 pb-6 text-center md:text-left">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">Mobile Product Concept</h2>
-          <p className="text-muted-foreground mt-2 text-lg">High-stakes UX designed for fragmented attention.</p>
+        <div className="mb-8 border-b border-border/40 pb-6 text-center md:text-left">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">Mobile Product Concept</h2>
+              <p className="text-muted-foreground mt-2 text-lg">A swipeable decision journey for high-stakes, fragmented attention.</p>
+            </div>
+            <div className="hidden md:flex items-center gap-2">
+              <button
+                className="w-10 h-10 rounded-full border border-border bg-card text-foreground flex items-center justify-center hover:bg-muted transition-colors"
+                data-testid="btn-concept-prev"
+                onClick={goPrev}
+                aria-label="Previous concept screen"
+              >
+                <ChevronRight className="w-5 h-5 rotate-180" />
+              </button>
+              <button
+                className="w-10 h-10 rounded-full border border-border bg-card text-foreground flex items-center justify-center hover:bg-muted transition-colors"
+                data-testid="btn-concept-next"
+                onClick={goNext}
+                aria-label="Next concept screen"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-3 mt-6 text-left">
+            {[
+              ["What is happening", "A launch owner receives an urgent signal, inspects the AI's reasoning, compares response paths, and confirms a human-owned action."],
+              ["Why mobile", "The interaction assumes interruption: short summaries, progressive evidence, and one clear next decision at a time."],
+              ["Trust model", "AI can recommend and prepare actions, but the product keeps evidence, tradeoffs, and accountability visible before execution."],
+            ].map(([label, copy]) => (
+              <div key={label} className="bg-card border border-border/50 rounded-2xl p-4">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold mb-2">{label}</p>
+                <p className="text-sm text-foreground/85 leading-relaxed">{copy}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 flex items-center justify-center md:justify-start gap-2 text-xs text-muted-foreground">
+            <ArrowRight className="w-4 h-4" />
+            <span>Swipe, drag, or use the arrows to move horizontally through the six-screen journey.</span>
+          </div>
         </div>
 
         <div className="relative -mx-6 md:mx-0 px-6 md:px-0">
-          <div className="overflow-hidden" ref={emblaRef} style={{ touchAction: "pan-y" }}>
+          <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef} style={{ touchAction: "pan-y" }}>
             <div className="flex gap-6 md:gap-10 pb-12 pt-4 items-center">
               {screens.map((screen, index) => (
                 <div
@@ -350,7 +598,7 @@ export default function MobileProductConcept() {
             </div>
           </div>
 
-          <div className="md:hidden flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-2 mt-8">
             {screens.map((_, index) => (
               <button
                 key={index}
