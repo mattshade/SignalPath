@@ -11,7 +11,7 @@ const errorData = [
 ];
 
 export default function MobileProductConcept() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: "center" });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: "center", dragFree: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [confirmed, setConfirmed] = useState(false);
 
@@ -323,13 +323,13 @@ export default function MobileProductConcept() {
         </div>
 
         <div className="relative -mx-6 md:mx-0 px-6 md:px-0">
-          <div className="overflow-hidden" ref={emblaRef}>
+          <div className="overflow-hidden" ref={emblaRef} style={{ touchAction: "pan-y" }}>
             <div className="flex gap-6 md:gap-10 pb-12 pt-4 items-center">
               {screens.map((screen, index) => (
                 <div
                   key={index}
                   className={`relative flex-none w-[300px] h-[620px] transition-all duration-500 ease-out ${
-                    selectedIndex === index ? "scale-100 opacity-100 z-20" : "scale-95 opacity-50 z-10 hidden md:block"
+                    selectedIndex === index ? "scale-100 opacity-100 z-20 pointer-events-auto" : "scale-95 opacity-40 z-10 pointer-events-none"
                   }`}
                 >
                   <div className="absolute inset-0 bg-foreground rounded-[44px] shadow-2xl ring-1 ring-border/20">
