@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { motion } from "framer-motion";
-import { ResponsiveContainer, LineChart, Line, YAxis } from "recharts";
-import { AlertCircle, ChevronRight, Play, Pause, CheckCircle2, ShieldAlert, ArrowRight, Activity, Share2, Mail, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ResponsiveContainer, LineChart, Line } from "recharts";
+import { AlertCircle, ChevronRight, Pause, CheckCircle2, ShieldAlert, ArrowRight, Activity, Share2, Mail, CheckCheck } from "lucide-react";
 
-// Mock data for sparklines
 const errorData = [
-  { value: 2 }, { value: 3 }, { value: 2 }, { value: 5 }, 
-  { value: 8 }, { value: 12 }, { value: 18 }, { value: 25 }, 
+  { value: 2 }, { value: 3 }, { value: 2 }, { value: 5 },
+  { value: 8 }, { value: 12 }, { value: 18 }, { value: 25 },
   { value: 32 }, { value: 45 }, { value: 68 }, { value: 85 }
 ];
 
 export default function MobileProductConcept() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: "center" });
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [confirmed, setConfirmed] = useState(false);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -25,6 +25,8 @@ export default function MobileProductConcept() {
     onSelect();
     emblaApi.on("select", onSelect);
   }, [emblaApi, onSelect]);
+
+  const goTo = (index: number) => emblaApi?.scrollTo(index);
 
   const screens = [
     {
@@ -43,8 +45,8 @@ export default function MobileProductConcept() {
               SEVERITY HIGH
             </div>
             <h2 className="text-2xl font-serif font-bold leading-tight mb-2">Critical Launch Alert</h2>
-            <p className="text-sm text-muted-foreground mb-6">v2.4.0 rollout • Detected 2m ago</p>
-            
+            <p className="text-sm text-muted-foreground mb-6">v2.4.0 rollout · Detected 2m ago</p>
+
             <div className="space-y-4">
               <div className="bg-muted/30 border border-border/50 rounded-xl p-4 flex justify-between items-center">
                 <div>
@@ -69,8 +71,8 @@ export default function MobileProductConcept() {
                   <p className="text-xl font-semibold text-foreground">12,400</p>
                 </div>
               </div>
-              
-              <div className="bg-card border border-border rounded-xl p-4 mt-6 shadow-sm relative overflow-hidden">
+
+              <div className="bg-card border border-border rounded-xl p-4 shadow-sm relative overflow-hidden">
                 <div className="absolute inset-0 bg-primary/5 -z-10"></div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -92,7 +94,11 @@ export default function MobileProductConcept() {
             </div>
           </div>
           <div className="p-4 border-t border-border/40">
-            <button className="w-full bg-primary text-primary-foreground py-3.5 rounded-xl font-medium text-sm" data-testid="btn-triage">
+            <button
+              className="w-full bg-primary text-primary-foreground py-3.5 rounded-xl font-medium text-sm"
+              data-testid="btn-triage"
+              onClick={() => goTo(1)}
+            >
               Triage Issue
             </button>
           </div>
@@ -104,14 +110,18 @@ export default function MobileProductConcept() {
       content: (
         <div className="flex flex-col h-full bg-card">
           <div className="p-4 border-b border-border/40 flex items-center gap-3 bg-background/50 backdrop-blur-md">
-            <button className="w-8 h-8 flex items-center justify-center text-foreground" data-testid="btn-back-2">
+            <button
+              className="w-8 h-8 flex items-center justify-center text-foreground"
+              data-testid="btn-back-2"
+              onClick={() => goTo(0)}
+            >
               <ChevronRight className="w-5 h-5 rotate-180" />
             </button>
             <span className="font-medium text-sm">Recommendation</span>
           </div>
           <div className="p-5 flex-1 overflow-y-auto">
             <div className="flex flex-col items-center justify-center text-center mt-6 mb-8">
-               <div className="relative w-24 h-24 flex items-center justify-center mb-6">
+              <div className="relative w-24 h-24 flex items-center justify-center mb-6">
                 <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="46" fill="none" stroke="hsl(var(--border))" strokeWidth="6" />
                   <circle cx="50" cy="50" r="46" fill="none" stroke="hsl(var(--chart-5))" strokeWidth="6" strokeDasharray="289" strokeDashoffset={289 - (289 * 0.82)} strokeLinecap="round" />
@@ -121,7 +131,7 @@ export default function MobileProductConcept() {
                   <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Confidence</span>
                 </div>
               </div>
-              
+
               <div className="bg-chart-5/20 text-chart-5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-3 flex items-center gap-1.5">
                 <ShieldAlert className="w-3.5 h-3.5" />
                 High Confidence Path
@@ -133,7 +143,11 @@ export default function MobileProductConcept() {
             </div>
 
             <div className="bg-muted/20 border border-border/50 rounded-xl p-1 mb-6">
-              <button className="w-full flex items-center justify-between p-3" data-testid="btn-evidence-view">
+              <button
+                className="w-full flex items-center justify-between p-3"
+                data-testid="btn-evidence-view"
+                onClick={() => goTo(2)}
+              >
                 <div className="flex items-center gap-3">
                   <Activity className="w-4 h-4 text-muted-foreground" />
                   <span className="text-sm font-medium">View Evidence & Signals</span>
@@ -158,10 +172,18 @@ export default function MobileProductConcept() {
             </div>
           </div>
           <div className="p-4 border-t border-border/40 grid grid-cols-2 gap-3">
-            <button className="w-full bg-muted text-foreground py-3.5 rounded-xl font-medium text-sm" data-testid="btn-ignore">
+            <button
+              className="w-full bg-muted text-foreground py-3.5 rounded-xl font-medium text-sm"
+              data-testid="btn-ignore"
+              onClick={() => goTo(0)}
+            >
               Ignore
             </button>
-            <button className="w-full bg-primary text-primary-foreground py-3.5 rounded-xl font-medium text-sm flex items-center justify-center gap-2 shadow-md" data-testid="btn-execute">
+            <button
+              className="w-full bg-primary text-primary-foreground py-3.5 rounded-xl font-medium text-sm flex items-center justify-center gap-2 shadow-md"
+              data-testid="btn-execute"
+              onClick={() => goTo(2)}
+            >
               <Pause className="w-4 h-4 fill-current" /> Execute
             </button>
           </div>
@@ -173,64 +195,120 @@ export default function MobileProductConcept() {
       content: (
         <div className="flex flex-col h-full bg-card">
           <div className="p-4 border-b border-border/40 flex items-center gap-3 bg-background/50 backdrop-blur-md">
-            <button className="w-8 h-8 flex items-center justify-center text-foreground" data-testid="btn-back-3">
+            <button
+              className="w-8 h-8 flex items-center justify-center text-foreground"
+              data-testid="btn-back-3"
+              onClick={() => { setConfirmed(false); goTo(1); }}
+            >
               <ChevronRight className="w-5 h-5 rotate-180" />
             </button>
             <span className="font-medium text-sm">Action</span>
           </div>
-          <div className="p-6 flex-1 flex flex-col justify-center">
-            
-            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-primary-foreground mb-6 shadow-lg shadow-primary/20">
-              <Pause className="w-8 h-8 fill-current" />
-            </div>
-            
-            <h2 className="text-2xl font-serif font-bold mb-2">Confirm Pause</h2>
-            <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
-              This will halt the v2.4.0 rollout at 42% and trigger automated stakeholder communications.
-            </p>
 
-            <div className="space-y-4 mb-8">
-              <div className="flex gap-3 items-start">
-                <div className="mt-0.5"><CheckCircle2 className="w-5 h-5 text-chart-2" /></div>
-                <div>
-                  <p className="text-sm font-medium">Pause Rollout</p>
-                  <p className="text-xs text-muted-foreground">via LaunchDarkly</p>
+          <AnimatePresence mode="wait">
+            {confirmed ? (
+              <motion.div
+                key="confirmed"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="flex-1 flex flex-col items-center justify-center p-6 text-center gap-4"
+              >
+                <div className="w-20 h-20 rounded-full bg-chart-2/15 flex items-center justify-center mb-2">
+                  <CheckCheck className="w-10 h-10 text-chart-2" />
                 </div>
-              </div>
-              <div className="flex gap-3 items-start">
-                <div className="mt-0.5"><Share2 className="w-5 h-5 text-chart-2" /></div>
-                <div>
-                  <p className="text-sm font-medium">Notify #eng-incidents</p>
-                  <p className="text-xs text-muted-foreground">via Slack</p>
+                <h2 className="text-2xl font-serif font-bold">Decision Logged</h2>
+                <p className="text-sm text-muted-foreground max-w-[220px] leading-relaxed">
+                  Rollout paused. Stakeholders notified. Incident record updated.
+                </p>
+                <div className="w-full mt-4 space-y-2 text-left">
+                  {["Rollout paused via LaunchDarkly", "Slack #eng-incidents notified", "Stakeholder email sent", "Incident record created"].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 bg-muted/30 border border-border/40 rounded-xl px-4 py-3">
+                      <CheckCircle2 className="w-4 h-4 text-chart-2 shrink-0" />
+                      <span className="text-sm">{item}</span>
+                    </div>
+                  ))}
                 </div>
-              </div>
-              <div className="flex gap-3 items-start">
-                <div className="mt-0.5"><Mail className="w-5 h-5 text-chart-2" /></div>
-                <div>
-                  <p className="text-sm font-medium">Update Stakeholders</p>
-                  <p className="text-xs text-muted-foreground">Auto-drafted email</p>
-                </div>
-              </div>
-            </div>
+                <button
+                  className="mt-4 w-full bg-muted text-foreground py-3 rounded-xl font-medium text-sm"
+                  data-testid="btn-done"
+                  onClick={() => { setConfirmed(false); goTo(0); }}
+                >
+                  Back to Start
+                </button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="confirm-form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex-1 flex flex-col"
+              >
+                <div className="p-6 flex-1 flex flex-col justify-center">
+                  <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-primary-foreground mb-6 shadow-lg shadow-primary/20">
+                    <Pause className="w-8 h-8 fill-current" />
+                  </div>
 
-            <div className="bg-muted/30 p-4 rounded-xl border border-border/50">
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                By confirming, you take ownership of this decision. This action and the AI's reasoning will be logged in the incident record.
-              </p>
-            </div>
-          </div>
-          
-          <div className="p-6 pt-2">
-            <button className="w-full relative overflow-hidden group bg-primary text-primary-foreground py-4 rounded-xl font-semibold text-sm shadow-xl shadow-primary/20 transition-transform active:scale-[0.98]" data-testid="btn-slide-confirm">
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                Slide to Confirm <ArrowRight className="w-4 h-4" />
-              </span>
-              <div className="absolute inset-0 bg-white/20 translate-y-full group-active:translate-y-0 transition-transform duration-300"></div>
-            </button>
-            <button className="w-full text-center text-xs text-muted-foreground font-medium mt-4 p-2 hover:text-foreground transition-colors" data-testid="btn-cancel">
-              Cancel
-            </button>
-          </div>
+                  <h2 className="text-2xl font-serif font-bold mb-2">Confirm Pause</h2>
+                  <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
+                    This will halt the v2.4.0 rollout at 42% and trigger automated stakeholder communications.
+                  </p>
+
+                  <div className="space-y-4 mb-8">
+                    <div className="flex gap-3 items-start">
+                      <div className="mt-0.5"><CheckCircle2 className="w-5 h-5 text-chart-2" /></div>
+                      <div>
+                        <p className="text-sm font-medium">Pause Rollout</p>
+                        <p className="text-xs text-muted-foreground">via LaunchDarkly</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3 items-start">
+                      <div className="mt-0.5"><Share2 className="w-5 h-5 text-chart-2" /></div>
+                      <div>
+                        <p className="text-sm font-medium">Notify #eng-incidents</p>
+                        <p className="text-xs text-muted-foreground">via Slack</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3 items-start">
+                      <div className="mt-0.5"><Mail className="w-5 h-5 text-chart-2" /></div>
+                      <div>
+                        <p className="text-sm font-medium">Update Stakeholders</p>
+                        <p className="text-xs text-muted-foreground">Auto-drafted email</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-muted/30 p-4 rounded-xl border border-border/50">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      By confirming, you take ownership of this decision. This action and the AI's reasoning will be logged in the incident record.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-6 pt-2">
+                  <button
+                    className="w-full relative overflow-hidden group bg-primary text-primary-foreground py-4 rounded-xl font-semibold text-sm shadow-xl shadow-primary/20 transition-transform active:scale-[0.98]"
+                    data-testid="btn-slide-confirm"
+                    onClick={() => setConfirmed(true)}
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      Confirm Decision <ArrowRight className="w-4 h-4" />
+                    </span>
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-active:translate-y-0 transition-transform duration-300"></div>
+                  </button>
+                  <button
+                    className="w-full text-center text-xs text-muted-foreground font-medium mt-4 p-2 hover:text-foreground transition-colors"
+                    data-testid="btn-cancel"
+                    onClick={() => goTo(1)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )
     }
@@ -244,30 +322,25 @@ export default function MobileProductConcept() {
           <p className="text-muted-foreground mt-2 text-lg">High-stakes UX designed for fragmented attention.</p>
         </div>
 
-        {/* Carousel Container */}
         <div className="relative -mx-6 md:mx-0 px-6 md:px-0">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-6 md:gap-10 pb-12 pt-4 items-center">
               {screens.map((screen, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className={`relative flex-none w-[300px] h-[620px] transition-all duration-500 ease-out ${
                     selectedIndex === index ? "scale-100 opacity-100 z-20" : "scale-95 opacity-50 z-10 hidden md:block"
                   }`}
                 >
-                  {/* Phone Frame */}
                   <div className="absolute inset-0 bg-foreground rounded-[44px] shadow-2xl ring-1 ring-border/20">
-                    {/* Notch */}
                     <div className="absolute top-0 inset-x-0 h-6 flex justify-center z-50 pointer-events-none">
                       <div className="w-32 h-6 bg-foreground rounded-b-3xl"></div>
                     </div>
-                    {/* Screen Content */}
                     <div className="absolute inset-[6px] bg-background rounded-[38px] overflow-hidden">
                       {screen.content}
                     </div>
                   </div>
-                  
-                  {/* Screen Title below frame */}
+
                   <div className={`absolute -bottom-10 left-0 right-0 text-center transition-opacity duration-300 ${selectedIndex === index ? 'opacity-100' : 'opacity-0'}`}>
                     <p className="font-medium text-sm text-foreground">{screen.title}</p>
                     <p className="text-xs text-muted-foreground mt-1">Screen {index + 1} of {screens.length}</p>
@@ -276,8 +349,7 @@ export default function MobileProductConcept() {
               ))}
             </div>
           </div>
-          
-          {/* Mobile Navigation Dots */}
+
           <div className="md:hidden flex justify-center gap-2 mt-8">
             {screens.map((_, index) => (
               <button
@@ -285,7 +357,7 @@ export default function MobileProductConcept() {
                 className={`w-2 h-2 rounded-full transition-all ${
                   selectedIndex === index ? "bg-primary w-6" : "bg-border"
                 }`}
-                onClick={() => emblaApi?.scrollTo(index)}
+                onClick={() => goTo(index)}
                 aria-label={`Go to slide ${index + 1}`}
                 data-testid={`dot-nav-${index}`}
               />

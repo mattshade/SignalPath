@@ -71,6 +71,7 @@ export default function HeroSection() {
                 whileTap={{ scale: 0.95 }}
                 className="bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2"
                 data-testid="hero-alert-btn"
+                onClick={() => document.getElementById('journey')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Triage <ArrowRight className="w-4 h-4" />
               </motion.button>
