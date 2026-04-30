@@ -1,0 +1,252 @@
+Build a polished portfolio-grade web app called SignalPath.
+
+Tagline:
+Designing AI-assisted decisions for moments that cannot wait.
+
+The app should be a detailed mobile web journey map for an AI-assisted decision-making workflow. It should show how a product, engineering, or operations leader uses a mobile web experience to respond to a high-stakes situation, understand context, evaluate AI recommendations, make a decision, and follow through.
+
+The goal is to create a portfolio piece that demonstrates:
+- Mobile UX strategy
+- Journey mapping
+- AI interaction design
+- Systems thinking
+- Trust and control in AI workflows
+- High-fidelity product design
+- Responsive design and mobile-first craft
+
+Build with React, TypeScript, Tailwind, and local mock data only. No backend or API keys.
+
+Visual direction:
+Use a Squarespace-inspired aesthetic without copying logos or exact brand assets.
+
+Default the app to light mode.
+
+The design should feel:
+- Editorial
+- Premium
+- Minimal
+- Spacious
+- Typographically strong
+- Highly crafted
+- Calm but sharp
+- Design-led rather than dashboard-heavy
+
+Style cues:
+- Warm white and soft neutral background
+- Black and charcoal typography
+- Large editorial headlines
+- Generous whitespace
+- Strong layout rhythm
+- Minimal borders
+- Refined cards
+- Elegant data visualization
+- Subtle motion
+- Soft shadows where useful
+- Sparse accent colors for urgency, confidence, and system state
+
+Mobile optimization:
+This app must be excellent on mobile web.
+
+Design mobile-first, then scale to tablet and desktop.
+
+Mobile requirements:
+- Fully responsive layout
+- Sticky bottom navigation on mobile
+- Collapsible sections
+- Swipeable journey stages
+- Large tap targets
+- Readable typography
+- No horizontal overflow
+- Mobile-first journey timeline
+- Embedded mobile UI preview
+- Smooth transitions between stages
+
+Core concept:
+SignalPath presents a journey map for a scenario called Critical Launch Response.
+
+Scenario:
+A product leader is away from their desk when a high-risk issue appears during a major feature launch. They open a mobile web experience that uses AI to summarize the issue, show relevant signals, recommend options, explain tradeoffs, and help them make a confident decision.
+
+Primary user:
+A product or engineering leader responsible for launch quality and customer impact.
+
+Journey stages:
+1. Alert
+2. Triage
+3. Context
+4. AI Recommendation
+5. Trust Check
+6. Decision
+7. Follow-through
+8. Learning Loop
+
+Major sections:
+
+1. Hero
+Create a strong editorial hero section.
+
+Hero title:
+Critical decisions rarely happen at a desk.
+
+Hero copy:
+SignalPath is a mobile-first system for navigating high-stakes decisions with AI.
+
+Add a subtle animation:
+A mobile alert expands into a structured decision flow.
+Signals like error rate, rollout status, and customer impact organize into a clear path toward action.
+
+2. Scenario Overview
+Show:
+- User
+- Situation
+- Goal
+- Constraints
+- Why mobile matters
+- Success criteria
+
+Include explanation:
+The challenge is not more data, but helping users understand what matters, what the AI believes, what is uncertain, and what to do next.
+
+3. Journey Map
+Create a detailed journey map with all 8 stages.
+
+For each stage include:
+- User goal
+- User action
+- System state
+- AI behavior
+- Key UI moment
+- User emotion
+- Pain point
+- Design opportunity
+- Trust requirement
+
+Desktop:
+Wide horizontal journey with connected stages
+
+Mobile:
+Swipeable or stacked vertical journey with sticky navigation
+
+4. Mobile Product Concept
+Design realistic mobile web UI screens:
+
+- Alert summary
+- Risk overview
+- AI recommendation
+- Evidence view
+- Decision confirmation
+- Follow-up monitoring
+
+Use realistic data:
+- Rollout at 42 percent
+- Error rate up 18 percent
+- Support tickets up 31 percent
+- 12,400 users affected
+- AI confidence at 82 percent
+- Recommended action is pause rollout and notify teams
+
+5. Trust and Control Model
+Show:
+- Confidence indicators
+- Evidence visibility
+- Explicit uncertainty
+- User override capability
+- Required confirmations
+- Clear ownership
+- Continuous monitoring
+
+6. Decision Framework
+Compare options:
+- Pause rollout
+- Continue monitoring
+- Rollback
+- Notify stakeholders
+
+Across:
+- Customer impact
+- Engineering risk
+- Time sensitivity
+- Reversibility
+- Confidence
+- Recommendation
+
+7. System State Diagram
+Visualize:
+- Signals
+- AI synthesis
+- Evidence layer
+- Recommendation engine
+- Human decision
+- Follow-up automation
+- Learning loop
+
+8. Failure Modes
+Include:
+- Low-confidence output
+- Conflicting signals
+- Missing data
+- Ignored alerts
+- Risky recommendations
+- Stakeholder disagreement
+
+Show:
+- Risk
+- UX response
+- Recovery path
+
+9. Before and After
+Before:
+- Fragmented tools
+- Slack chaos
+- Delayed decisions
+
+After:
+- Clear mobile triage
+- Structured reasoning
+- Confident decisions
+- Automated follow-through
+
+10. Design System
+Show:
+- Typography
+- Color tokens
+- Cards
+- Alerts
+- Confidence indicators
+- Recommendation badges
+- Journey components
+- Mobile navigation
+- Decision matrix UI
+- Timeline components
+
+Sample data:
+- 8 journey stages
+- 6 mobile screens
+- 4 decision options
+- 6 failure modes
+- 12 signals
+- 10 events
+- 8 design principles
+- 12 UI components
+
+Important UX requirements:
+The value should be obvious within 10 seconds.
+
+The viewer should immediately understand:
+- This is a mobile-first decision system
+- AI supports but does not replace the user
+- Trust and clarity are central
+- The designer understands systems deeply
+
+Portfolio callouts:
+
+1. Design Challenge
+Helping users make high-stakes decisions quickly with incomplete information.
+
+2. Systems Model
+How signals, AI, and human judgment interact.
+
+3. Design Principle
+AI should reduce cognitive load without removing human control.
+
+Make the final product polished enough for senior-level design, AI product, and mobile UX portfolios.
